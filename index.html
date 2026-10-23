@@ -137,19 +137,114 @@ footer span:last-child{max-width:130px;text-align:right}
 .belief-label{font-size:9px}
 }
 
-</style></head><body>
+/* Spatial edition: all visual assets are generated locally. */
+body{background:#0b1012}
+body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 78% 16%,#12282c 0,transparent 45%)}
+header{position:relative;z-index:2}
+.hero{grid-template-columns:1.05fr 1fr;gap:36px;padding:60px 0 72px;min-height:710px}
+.hero-copy{position:relative;z-index:1}
+.hero h1{font-size:clamp(66px,7vw,96px)}
+.hero h1 em{background:linear-gradient(100deg,#d6f77a,#8edada);background-clip:text;-webkit-background-clip:text;color:transparent}
+.map{position:relative;min-width:0;max-width:none}
+.scene{position:relative;width:100%;height:410px;isolation:isolate;cursor:grab;touch-action:pan-y}
+.scene:active{cursor:grabbing}
+.scene:before{content:'';position:absolute;inset:15% 8%;border:1px solid #80d5db19;border-radius:50%;transform:rotate(-23deg);box-shadow:0 0 90px #82d4db0c}
+.scene:after{content:'';position:absolute;width:64%;height:28px;background:#0009;bottom:20px;left:18%;filter:blur(18px);border-radius:50%;z-index:-1}
+.scene canvas{width:100%;height:100%;display:block;opacity:0;transition:opacity .6s}
+.webgl-ready canvas{opacity:1}
+.scene-fallback{position:absolute;inset:0;display:grid;place-items:center;perspective:750px;z-index:-1}
+.fallback-cube{width:150px;height:150px;transform:rotateX(-25deg) rotateY(35deg);transform-style:preserve-3d}
+.fallback-cube span{position:absolute;inset:0;border:2px solid #101719;background:var(--c);opacity:.92;transform:var(--t)}
+.webgl-ready .scene-fallback{display:none}
+.scene-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font:10px monospace;letter-spacing:.06em;text-transform:uppercase}
+.scene-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--lime);box-shadow:0 0 12px var(--lime);margin-right:7px}
+.scene-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted);font:10px monospace;border-top:1px solid var(--line);padding:8px 0}
+.motion-toggle{border:0;color:var(--ink);font:10px monospace;min-height:44px;background:transparent;cursor:pointer;padding:0 8px}
+.motion-toggle:focus-visible,.discipline:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+.motion-toggle:hover{color:var(--lime)}
+.disciplines{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}
+.discipline{display:flex;align-items:center;gap:8px;background:#ffffff04;border:1px solid #ffffff20;color:var(--muted);border-radius:30px;padding:10px 12px;min-height:44px;font:11px Arial,sans-serif;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.discipline i{height:6px;width:6px;border-radius:50%;background:var(--color)}
+.discipline:hover,.discipline[aria-pressed=true]{border-color:var(--color);color:var(--ink);background:#ffffff0c}
+.map-footer{max-width:300px;line-height:1.8}
+.map-label{margin:0}
+.story{position:relative;transition:background .3s}
+.story:hover{background:#82d4db05}
+.story:before{content:'';position:absolute;left:0;top:-1px;width:0;height:1px;background:var(--cyan);transition:width .6s}
+.story:hover:before{width:100%}
+.symbol{transition:transform .5s}
+.story:hover .symbol{transform:rotate(45deg)}
+.underlink span{display:inline-block;transition:transform .25s}
+.underlink:hover span{transform:translateY(5px)}
+.belief{background:linear-gradient(120deg,#d6f77a,#a6e2ac);overflow:hidden}
+.belief:after{content:'';position:absolute;right:-60px;bottom:-160px;width:380px;height:380px;border:1px solid #11161830;border-radius:50%;pointer-events:none}
+.reveal{transition:opacity .8s,transform .8s}
+.js-motion .reveal:not(.revealed){opacity:0;transform:translateY(22px)}
+.reading-progress{position:fixed;top:0;left:0;height:2px;background:var(--lime);width:100%;transform:scaleX(0);transform-origin:left;z-index:10;pointer-events:none}
+@media(min-width:1000px){.scene{height:460px}.map{margin-right:-16px}.scene-top{padding:0 16px}}
+@media(max-width:900px){.hero{gap:20px}.scene{height:350px}.hero h1{font-size:65px}}
+@media(max-width:650px){.hero{grid-template-columns:1fr;padding:38px 0 44px;gap:35px;min-height:0}.hero h1{font-size:64px}.scene{height:340px;width:100%}.map{max-width:100%}.scene-top{font-size:9px}.disciplines{gap:6px}.discipline{font-size:11px;padding:9px 11px}.scene-controls{font-size:9px}.map-footer{font-size:10px;margin-top:15px}.belief:after{right:-220px}.scene:before{inset:12% 5%}}
+@media(max-width:350px){.hero h1{font-size:54px}.scene{height:290px}.scene-controls{font-size:8px}.discipline{padding:9px 10px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1!important;transform:none!important}}
+@media print{.scene,.scene-controls,.reading-progress{display:none}.discipline{border-color:#aaa;color:#222}.reveal{opacity:1!important;transform:none!important}}
+@media(max-width:350px){.scene-top{font-size:8px;letter-spacing:0}.scene-top .map-label{font-size:8px}.scene-top>span{white-space:nowrap}.scene-dot{margin-right:4px}.scene-controls{flex-wrap:wrap;gap:0}.motion-toggle{margin-left:auto}}
+html,body{overflow-x:clip}
+
+</style></head><body><div class="reading-progress" aria-hidden="true"></div>
 <a class="skip" href="#main">Saltar al contenido</a>
 <div class="wrap"><header><a class="brand" href="#inicio">adrián<span> /</span></a><span class="header-note">Experiencia y enfoque</span><a class="out" href="https://www.linkedin.com/in/adrian-martinez-rodriguez/" target="_blank" rel="noopener noreferrer">LinkedIn ↗<span class="sr"> (nueva pestaña)</span></a></header>
 <main id="main">
 <section class="hero" id="inicio"><div class="hero-copy"><p class="eyebrow">Adrián Martínez Rodríguez · Responsable de Data & IA</p><h1>Datos e IA<br>con visión<br><em>de conjunto.</em></h1><p class="lead">Mi experiencia abarca data engineering, data science, analytics, arquitectura e inteligencia artificial. Esa base me permite abordar soluciones desde la definición del problema hasta su aplicación en la organización.</p><a class="underlink" href="#recorrido">Mi experiencia y forma de trabajar <span aria-hidden="true">↓</span></a></div>
-<div class="map" aria-label="Las disciplinas que conecta mi trayectoria"><p class="map-label">Ámbitos de experiencia</p><div class="pieces"><span class="piece engineering">Data<br>engineering<span class="piece-index">01</span></span><span class="piece science">Data<br>science<span class="piece-index">02</span></span><span class="piece analytics">Analytics<span class="piece-index">03</span></span><span class="piece architecture">Arquitectura<span class="piece-index">04</span></span><span class="piece ai">Inteligencia<br>artificial<span class="piece-index">05</span></span><span class="connector" aria-hidden="true">↗</span></div><p class="map-footer">Una base técnica que abarca distintas disciplinas.</p></div></section>
-<section class="lessons" id="recorrido" aria-labelledby="recorrido-titulo"><div class="section-title"><p class="eyebrow">Experiencia profesional</p><h2 id="recorrido-titulo">Experiencia técnica,<br>contexto de negocio y equipos.</h2></div>
-<article class="story"><div class="story-meta"><span class="index">01 / Disciplinas</span><span class="symbol" aria-hidden="true">+</span></div><div class="story-copy"><h3>Una perspectiva técnica transversal</h3><p>He trabajado en distintas disciplinas de datos e IA. Esta experiencia me ayuda a entender sus dependencias y a tomar decisiones considerando la solución completa, no solo una especialidad.</p></div><div class="note"><span>Perspectiva</span><p>Relación entre datos, modelos y arquitectura.</p></div></article>
-<article class="story"><div class="story-meta"><span class="index">02 / Contexto</span><span class="symbol" aria-hidden="true">↔</span></div><div class="story-copy"><h3>Aplicación en una gran organización</h3><p>Mi experiencia aplicando datos e IA en una gran organización me ha enseñado a considerar los objetivos de negocio, el entorno tecnológico y las condiciones operativas, además de la viabilidad técnica.</p></div><div class="note"><span>Criterio de aplicación</span><p>Viabilidad técnica y encaje operativo.</p></div></article>
-<article class="story"><div class="story-meta"><span class="index">03 / Personas</span><span class="symbol" aria-hidden="true">↗</span></div><div class="story-copy"><h3>Liderazgo de equipos multidisciplinares</h3><p>He evolucionado desde funciones técnicas hacia el liderazgo de equipos multidisciplinares. Combino esa base con la comunicación entre perfiles, la alineación de prioridades y la definición de soluciones concretas.</p></div><div class="note"><span>Responsabilidad</span><p>Alinear objetivos, decisiones técnicas y equipo.</p></div></article>
+<div class="map" aria-label="Las disciplinas que conecta mi trayectoria"><div class="scene-top"><p class="map-label">Ámbitos de experiencia</p><span><i class="scene-dot"></i>Visión de conjunto</span></div><div class="scene"><canvas id="sculpture" aria-hidden="true"></canvas><div class="scene-fallback" aria-hidden="true"><div class="fallback-cube"><span style="--c:#82d4db;--t:translateZ(75px)"></span><span style="--c:#d6f77a;--t:rotateY(90deg) translateZ(75px)"></span><span style="--c:#526ce8;--t:rotateX(90deg) translateZ(75px)"></span></div></div></div><div class="scene-controls"><span class="scene-hint">Arrastra para explorar el conjunto</span><button class="motion-toggle" type="button" aria-pressed="true">Ⅱ Pausar movimiento</button></div><div class="disciplines" role="group" aria-label="Resaltar una disciplina"><button class="discipline" style="--color:#82d4db" aria-pressed="false"><i aria-hidden="true"></i>Data engineering</button><button class="discipline" style="--color:#d6f77a" aria-pressed="false"><i aria-hidden="true"></i>Data science</button><button class="discipline" style="--color:#efbd94" aria-pressed="false"><i aria-hidden="true"></i>Analytics</button><button class="discipline" style="--color:#e5e8e5" aria-pressed="false"><i aria-hidden="true"></i>Arquitectura</button><button class="discipline" style="--color:#526ce8" aria-pressed="false"><i aria-hidden="true"></i>Inteligencia artificial</button></div><p class="map-footer">Una base técnica que abarca distintas disciplinas.</p></div></section>
+<section class="lessons" id="recorrido" aria-labelledby="recorrido-titulo"><div class="section-title reveal"><p class="eyebrow">Experiencia profesional</p><h2 id="recorrido-titulo">Experiencia técnica,<br>contexto de negocio y equipos.</h2></div>
+<article class="story reveal"><div class="story-meta"><span class="index">01 / Disciplinas</span><span class="symbol" aria-hidden="true">+</span></div><div class="story-copy"><h3>Una perspectiva técnica transversal</h3><p>He trabajado en distintas disciplinas de datos e IA. Esta experiencia me ayuda a entender sus dependencias y a tomar decisiones considerando la solución completa, no solo una especialidad.</p></div><div class="note"><span>Perspectiva</span><p>Relación entre datos, modelos y arquitectura.</p></div></article>
+<article class="story reveal"><div class="story-meta"><span class="index">02 / Contexto</span><span class="symbol" aria-hidden="true">↔</span></div><div class="story-copy"><h3>Aplicación en una gran organización</h3><p>Mi experiencia aplicando datos e IA en una gran organización me ha enseñado a considerar los objetivos de negocio, el entorno tecnológico y las condiciones operativas, además de la viabilidad técnica.</p></div><div class="note"><span>Criterio de aplicación</span><p>Viabilidad técnica y encaje operativo.</p></div></article>
+<article class="story reveal"><div class="story-meta"><span class="index">03 / Personas</span><span class="symbol" aria-hidden="true">↗</span></div><div class="story-copy"><h3>Liderazgo de equipos multidisciplinares</h3><p>He evolucionado desde funciones técnicas hacia el liderazgo de equipos multidisciplinares. Combino esa base con la comunicación entre perfiles, la alineación de prioridades y la definición de soluciones concretas.</p></div><div class="note"><span>Responsabilidad</span><p>Alinear objetivos, decisiones técnicas y equipo.</p></div></article>
 </section>
-<section class="approach" aria-labelledby="approach-titulo"><p class="eyebrow">Forma de trabajar</p><h2 id="approach-titulo">Definir el problema.<br>Revisar los supuestos.<br><span>Elegir una solución proporcionada<br class="desktop-br"> al objetivo.</span></h2><p class="approach-copy">Conecto estrategia, negocio y tecnología para concretar iniciativas que parten de una definición incompleta. Busco entender la necesidad de fondo, revisar el enfoque inicial y elegir la alternativa más sencilla que resuelva el problema.</p><div class="process" aria-hidden="true"><span>Necesidad inicial</span><i></i><span>Problema definido</span><i></i><span>Solución aplicable</span></div></section>
-<section class="belief" aria-label="Criterio para aplicar inteligencia artificial"><span class="belief-label">Criterio de aplicación de IA</span><p class="statement">Valoro la IA por su utilidad: abordar tareas que antes resultaban difíciles, costosas o inviables. Su adopción debe responder a una necesidad concreta.</p></section>
-<section class="closing"><div><p class="eyebrow">Trayectoria profesional</p><h2>Experiencia y formación,<br>en detalle.</h2></div><a class="button" href="https://www.linkedin.com/in/adrian-martinez-rodriguez/" target="_blank" rel="noopener noreferrer">Ver mi perfil <span aria-hidden="true">↗</span><span class="sr"> de LinkedIn (nueva pestaña)</span></a></section>
+<section class="approach reveal" aria-labelledby="approach-titulo"><p class="eyebrow">Forma de trabajar</p><h2 id="approach-titulo">Definir el problema.<br>Revisar los supuestos.<br><span>Elegir una solución proporcionada<br class="desktop-br"> al objetivo.</span></h2><p class="approach-copy">Conecto estrategia, negocio y tecnología para concretar iniciativas que parten de una definición incompleta. Busco entender la necesidad de fondo, revisar el enfoque inicial y elegir la alternativa más sencilla que resuelva el problema.</p><div class="process" aria-hidden="true"><span>Necesidad inicial</span><i></i><span>Problema definido</span><i></i><span>Solución aplicable</span></div></section>
+<section class="belief reveal" aria-label="Criterio para aplicar inteligencia artificial"><span class="belief-label">Criterio de aplicación de IA</span><p class="statement">Valoro la IA por su utilidad: abordar tareas que antes resultaban difíciles, costosas o inviables. Su adopción debe responder a una necesidad concreta.</p></section>
+<section class="closing reveal"><div><p class="eyebrow">Trayectoria profesional</p><h2>Experiencia y formación,<br>en detalle.</h2></div><a class="button" href="https://www.linkedin.com/in/adrian-martinez-rodriguez/" target="_blank" rel="noopener noreferrer">Ver mi perfil <span aria-hidden="true">↗</span><span class="sr"> de LinkedIn (nueva pestaña)</span></a></section>
 </main><footer><span>Adrián Martínez Rodríguez</span><span>Estrategia · Negocio · Tecnología</span></footer></div>
-</body></html>
+<script>
+(()=>{'use strict';
+const reduced=matchMedia('(prefers-reduced-motion: reduce)'),canvas=document.querySelector('#sculpture'),scene=canvas.parentElement,toggle=document.querySelector('.motion-toggle');
+let paused=reduced.matches,visible=true,frame=0,last=0,time=0,px=0,py=0,rx=-.22,ry=.2,selected=-1,drag=false,lastX=0;
+const progress=document.querySelector('.reading-progress');
+function scroll(){const max=document.documentElement.scrollHeight-innerHeight;progress.style.transform=`scaleX(${max>0?scrollY/max:0})`}
+addEventListener('scroll',scroll,{passive:true});scroll();
+if(!reduced.matches&&'IntersectionObserver'in window){document.documentElement.classList.add('js-motion');const reveal=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');reveal.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(e=>reveal.observe(e))}
+let gl;try{gl=canvas.getContext('webgl',{alpha:true,antialias:true,powerPreference:'low-power'})}catch(e){}
+if(!gl){toggle.hidden=true;document.querySelector('.scene-hint').textContent='Visión de conjunto';document.querySelectorAll('.discipline').forEach(b=>{b.disabled=true});return}
+const vert=`attribute vec3 aPos;attribute vec3 aNormal;attribute float aBand;uniform mat4 uProjection;uniform mat4 uModel;varying vec3 vNormal;varying vec3 vPos;varying float vBand;void main(){vec4 p=uModel*vec4(aPos,1.);vPos=p.xyz;vNormal=mat3(uModel)*aNormal;vBand=aBand;gl_Position=uProjection*p;}`;
+const frag=`precision mediump float;varying vec3 vNormal;varying vec3 vPos;varying float vBand;uniform float uSelected;void main(){vec3 n=normalize(vNormal);vec3 view=normalize(-vPos);vec3 light=normalize(vec3(-3.,5.,5.));float diffuse=max(dot(n,light),0.);float rim=pow(1.-max(dot(n,view),0.),3.);float spec=pow(max(dot(n,normalize(light+view)),0.),55.);vec3 color=vBand<.5?vec3(.51,.83,.86):vBand<1.5?vec3(.84,.97,.48):vBand<2.5?vec3(.94,.74,.58):vBand<3.5?vec3(.90,.91,.90):vec3(.32,.42,.91);float active=uSelected<0.?1.:abs(vBand-uSelected)<.4?1.:.28;color*=active;vec3 c=color*(.23+.78*diffuse)+vec3(.7,.85,.95)*spec*.8+color*rim*.4;gl_FragColor=vec4(c,1.);}`;
+function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error('shader');return s}
+let program;try{program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vert));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,frag));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('link')}catch(e){toggle.hidden=true;return}
+gl.useProgram(program);
+const positions=[],normals=[],bands=[];
+const norm=v=>{const l=Math.hypot(...v);return v.map(x=>x/l)},cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+// Five intertwined closed ribbons. Every vertex has a real 3D position and surface normal.
+function point(t){const r=1.05+.39*Math.cos(3*t);return [r*Math.cos(2*t),r*Math.sin(2*t),.52*Math.sin(3*t)]}
+function vertex(t,a){const p=point(t),q=point(t+.001),tangent=norm(q.map((x,i)=>x-p[i])),n=norm(cross(tangent,[0,0,1])),b=norm(cross(tangent,n)),normal=n.map((x,i)=>x*Math.cos(a)+b[i]*Math.sin(a));return {p:p.map((x,i)=>x+.255*normal[i]),n:normal}}
+const count=innerWidth<650?240:360,sides=14;
+for(let i=0;i<count;i++){const t=i/count*Math.PI*2,t1=(i+1)/count*Math.PI*2,band=Math.min(4,Math.floor(i/count*5));for(let j=0;j<sides;j++){const a=j/sides*Math.PI*2,a1=(j+1)/sides*Math.PI*2;const v=[vertex(t,a),vertex(t1,a),vertex(t1,a1),vertex(t,a),vertex(t1,a1),vertex(t,a1)];v.forEach(v=>{positions.push(...v.p);normals.push(...v.n);bands.push(band)})}}
+function attribute(name,data,size){const loc=gl.getAttribLocation(program,name),buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,0,0)}
+attribute('aPos',positions,3);attribute('aNormal',normals,3);attribute('aBand',bands,1);
+const projection=gl.getUniformLocation(program,'uProjection'),model=gl.getUniformLocation(program,'uModel'),selection=gl.getUniformLocation(program,'uSelected');
+gl.enable(gl.DEPTH_TEST);gl.clearColor(0,0,0,0);
+function resize(){const dpr=Math.min(devicePixelRatio||1,innerWidth<650?1.5:2),r=scene.getBoundingClientRect();canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);gl.viewport(0,0,canvas.width,canvas.height);const f=1/Math.tan(.63/2),aspect=r.width/r.height,near=.1,far=100;gl.uniformMatrix4fv(projection,false,new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)/(near-far),-1,0,0,2*far*near/(near-far),0]));draw()}
+function draw(){const ax=rx+py*.25,ay=ry+px*.35+time*.16,az=.35+Math.sin(time*.25)*.07,cx=Math.cos(ax),sx=Math.sin(ax),cy=Math.cos(ay),sy=Math.sin(ay),cz=Math.cos(az),sz=Math.sin(az);const a=[cy*cz,cy*sz,-sy,0,sx*sy*cz-cx*sz,sx*sy*sz+cx*cz,sx*cy,0,cx*sy*cz+sx*sz,cx*sy*sz-sx*cz,cx*cy,0,0,Math.sin(time*.7)*.035,-6.7,1];gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniformMatrix4fv(model,false,new Float32Array(a));gl.uniform1f(selection,selected);gl.drawArrays(gl.TRIANGLES,0,bands.length);canvas.dataset.rendered='true'}
+function loop(now){frame=0;if(paused||!visible||document.hidden)return;if(now-last>=33){time+=Math.min((now-last)/1000,.05);last=now;draw()}frame=requestAnimationFrame(loop)}
+function start(){if(!frame&&!paused&&visible&&!document.hidden){last=performance.now();frame=requestAnimationFrame(loop)}}
+function stop(){cancelAnimationFrame(frame);frame=0;draw()}
+function updateToggle(){toggle.textContent=paused?'▶ Activar movimiento':'Ⅱ Pausar movimiento';if(paused)toggle.textContent='▶ Activar movimiento';toggle.setAttribute('aria-pressed',String(!paused))}
+toggle.addEventListener('click',()=>{paused=!paused;updateToggle();paused?stop():start()});updateToggle();
+scene.addEventListener('pointermove',e=>{if(reduced.matches||paused)return;const r=scene.getBoundingClientRect();px=(e.clientX-r.left)/r.width-.5;py=(e.clientY-r.top)/r.height-.5;if(drag){ry+=(e.clientX-lastX)*.008;lastX=e.clientX}if(!frame)draw()});
+scene.addEventListener('pointerdown',e=>{if(reduced.matches||paused)return;drag=true;lastX=e.clientX});addEventListener('pointerup',()=>drag=false);scene.addEventListener('pointerleave',()=>{drag=false;px=0;py=0});
+document.querySelectorAll('.discipline').forEach((b,i)=>b.addEventListener('click',()=>{selected=selected===i?-1:i;document.querySelectorAll('.discipline').forEach((x,j)=>x.setAttribute('aria-pressed',String(j===selected)));draw()}));
+new ResizeObserver(resize).observe(scene);new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;visible?start():stop()},{threshold:0}).observe(scene);
+document.addEventListener('visibilitychange',()=>document.hidden?stop():start());reduced.addEventListener('change',()=>{paused=reduced.matches;updateToggle();paused?stop():start();document.documentElement.classList.remove('js-motion')});
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();stop();scene.classList.remove('webgl-ready');toggle.hidden=true});
+resize();scene.classList.add('webgl-ready');start();window.portfolioScene={get state(){return {paused,visible,time,selected,vertices:bands.length,width:canvas.width,height:canvas.height}}};
+})();
+
+</script></body></html>
